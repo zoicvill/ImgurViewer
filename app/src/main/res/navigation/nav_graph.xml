@@ -6,7 +6,19 @@
     app:startDestination="@id/imageGalleryFragment">
     <fragment
         android:id="@+id/imageGalleryFragment"
-        android:name="com.example.imgurviewer.ui.ImageGalleryFragment"
+        android:name="com.example.imgurviewer.ui.imagegallery.ImageGalleryFragment"
         android:label="fragment_images"
-        tools:layout="@layout/fragment_images" />
+        tools:layout="@layout/fragment_images" >
+        <action
+            android:id="@+id/action_imageGalleryFragment_to_zoomImageFragment"
+            app:destination="@id/zoomImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/zoomImageFragment"
+        android:name="com.example.imgurviewer.ui.ZoomImageFragment"
+        android:label="ZoomImageFragment" >
+        <action
+            android:id="@+id/action_zoomImageFragment_to_imageGalleryFragment"
+            app:destination="@id/imageGalleryFragment" />
+    </fragment>
 </navigation>

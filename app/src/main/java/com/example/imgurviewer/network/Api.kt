@@ -17,9 +17,9 @@ interface Api {
     @Headers("Authorization: Client-ID $CLIENT_ID")
     suspend fun getPopularImgs(@Path(value = "page", encoded = true) page: Int): Response<GalleryItems>
 
-    @GET("/3/gallery/{postId}/comments")
+    @GET("gallery/{postId}/comments/best")
     @Headers("Authorization: Client-ID $CLIENT_ID")
-    fun getComments(@Path("postId") postId: String): Response<Comments>
+    suspend fun getComments(@Path("postId", encoded = true) postId: String): Response<Comments>
 
     companion object {
         val client by lazy { retrofit.create<Api>() }

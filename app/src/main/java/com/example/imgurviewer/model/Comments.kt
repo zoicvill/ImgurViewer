@@ -13,16 +13,13 @@ data class Comments(
     val status: Int? = null
 ) {
     data class DataItem(
+        @field:SerializedName("image_id")
+        val imageId: String? = null,
+        @field:SerializedName("comment")
+        val comment: String? = null,
         @field:SerializedName("author")
         val author: String? = null,
 
-        @field:SerializedName("comment")
-        val comment: String? = null,
 
-        @field:SerializedName("id")
-        val id: Int? = null,
-
-        @field:SerializedName("author_id")
-        val authorId: Int? = null,
-    )
+        )
 }

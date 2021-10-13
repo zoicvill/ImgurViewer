@@ -56,7 +56,5 @@ data class GalleryItems(
         @field:SerializedName("id")
         val id: String? = null,
 
-
-
         )
 }

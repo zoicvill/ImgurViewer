@@ -1,10 +1,12 @@
 package com.example.imgurviewer.adapters
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imgurviewer.R
 import com.example.imgurviewer.databinding.ViewItemImgBinding
@@ -22,8 +24,12 @@ class ImageAdapter :
     private var categoryList: List<GalleryItems.DataItem?>? = emptyList()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: Response<GalleryItems>) {
-        this.categoryList = list.body()?.data
+    fun setList(list: List<GalleryItems.DataItem?>) {
+        this.categoryList = list
+        categoryList?.forEach {
+            Log.d("Lol", "List $it")
+        }
+
         notifyDataSetChanged()
     }
 
@@ -41,13 +47,12 @@ class ImageAdapter :
 
     private fun loadImage(position: Int, viewBinding: ViewItemImgBinding) {
         CoroutineScope(Dispatchers.Main).launch {
-            if (categoryList?.get(position)?.images?.get(0)?.id != null){
+//                Log.d("Lol", "loadImage $position ${categoryList?.get(position)?.images?.get(0)?.id?.toImgurUrl()}")
                 Picasso.get()
-                    .load(categoryList?.get(position)?.images?.get(0)?.id?.toImgurUrl(false))
+                    .load(categoryList?.get(position)?.images?.get(0)?.id?.toImgurUrl())
                     .fit()
                     .error(R.drawable.my_gradient)
                     .into(viewBinding.itemImg)
-            }
         }
 
     }
@@ -58,7 +63,15 @@ class ImageAdapter :
             categoryList?.get(position)?.apply {
                 loadImage(position, view)
                 view.root.setOnClickListener {
-                    Toast.makeText(it.context, " HUi", Toast.LENGTH_LONG ).show()
+                    val bundle = Bundle()
+                    bundle.putString("key", this.id)
+                    bundle.putString("tit", this.title)
+                    bundle.putString("img", this.images?.get(0)?.id?.toImgurUrl())
+                    bundle.putString("link", this.link)
+                    Log.d("Lol", "bundle ${this.title}")
+
+                    view.root.findNavController()
+                        .navigate(R.id.action_imageGalleryFragment_to_zoomImageFragment, bundle)
                 }
             }
         }

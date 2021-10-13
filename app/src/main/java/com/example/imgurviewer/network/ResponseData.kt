@@ -9,6 +9,6 @@ class ResponseData: RetrofitRepository {
     override suspend fun getPopularImgs(page: Int): Response<GalleryItems> =
         Api.client.getPopularImgs(page)
 
-    override fun getComments(postId: String): Response<Comments> =
+    override suspend fun getComments(postId: String): Response<Comments> =
         Api.client.getComments(postId)
 }
