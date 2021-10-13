@@ -17,14 +17,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constLayout"
-        android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/itemImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:adjustViewBounds="false"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
