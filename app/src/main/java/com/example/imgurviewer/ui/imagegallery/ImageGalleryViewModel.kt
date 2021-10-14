@@ -18,12 +18,10 @@ class ImageGalleryViewModel(application: Application) : AndroidViewModel(applica
     private var galleryItems: MutableLiveData<List<GalleryItems.DataItem?>> = MutableLiveData()
     fun getGalleryItems() = galleryItems
 
-    private var commentsItems: MutableLiveData<List<Comments.DataItem?>> = MutableLiveData()
-    fun getComments() = commentsItems
-
     private var pag: Int = 0
 
     init {
+        Log.d("Lol", "init")
         APIREPOSITRETROFIT = ResponseData()
         pagination(pag)
     }
@@ -45,18 +43,5 @@ class ImageGalleryViewModel(application: Application) : AndroidViewModel(applica
             }
         }
     }
-
-    /*загрузка комментов*/
-    fun comments(str: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (APIREPOSITRETROFIT.getComments(str).isSuccessful) {
-                commentsItems.postValue(APIREPOSITRETROFIT.getComments(str).body()?.data)
-                Log.d("Lol", "getComments if ${APIREPOSITRETROFIT.getComments(str).body()?.data}")
-            } else {
-                Log.d("Lol", "getComments ${APIREPOSITRETROFIT.getPopularImgs(0).code()}")
-            }
-        }
-    }
-
 
 }

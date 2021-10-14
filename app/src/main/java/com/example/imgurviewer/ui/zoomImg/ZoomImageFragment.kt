@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 
 class ZoomImageFragment : Fragment() {
 
-    private lateinit var viewModel: ImageGalleryViewModel
+    private lateinit var viewModel: ZoomImageViewModel
     private var _binding: FragmentZoomImageBinding? = null
     private val mBinding get() = _binding!!
     private var id: String? = null
@@ -47,7 +47,7 @@ class ZoomImageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ImageGalleryViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ZoomImageViewModel::class.java)
         id?.let { viewModel.comments(it) }
         viewModel.getComments().observe(viewLifecycleOwner, {
             init(it)

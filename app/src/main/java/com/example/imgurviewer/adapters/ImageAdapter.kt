@@ -23,10 +23,6 @@ class ImageAdapter :
     @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<GalleryItems.DataItem?>) {
         this.categoryList = list
-        categoryList?.forEach {
-            Log.d("Lol", "List $it")
-        }
-
         notifyDataSetChanged()
     }
 

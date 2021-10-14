@@ -87,11 +87,8 @@ class ImageGalleryFragment : Fragment() {
                 answer.isNotEmpty() -> {
                     mBinding.list.apply {
                         mRecyclerView = mBinding.list
-                        mRecyclerView.setHasFixedSize(true)
                         val sGridLayoutManager =
                             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                        sGridLayoutManager.gapStrategy =
-                            StaggeredGridLayoutManager.GAP_HANDLING_NONE
                         mRecyclerView.layoutManager = sGridLayoutManager
                         mImageAdapter = ImageAdapter()
                         mImageAdapter?.run { setList(answer) }
@@ -109,7 +106,6 @@ class ImageGalleryFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("Lol", "Observer onDestroyView")
         binding = null
     }
 
