@@ -7,8 +7,11 @@
         <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
         <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/fragment_first.xml" value="0.25416666666666665" />
-        <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/fragment_images.xml" value="0.25416666666666665" />
+        <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/fragment_images.xml" value="0.176" />
         <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/fragment_zoom_image.xml" value="0.25416666666666665" />
+        <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/item_error.xml" value="0.1625" />
+        <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/item_progress.xml" value="0.1625" />
+        <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/layout_toolbar.xml" value="0.1234375" />
         <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/test.xml" value="0.264" />
         <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/view_button.xml" value="0.6" />
         <entry key="..\:/project/ImgurViewer/app/src/main/res/layout/view_image_full.xml" value="0.25416666666666665" />

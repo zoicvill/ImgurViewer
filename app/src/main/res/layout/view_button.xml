@@ -25,17 +25,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextNumber2"
-        android:layout_width="60dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/next"
-        app:layout_constraintStart_toEndOf="@+id/perv"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

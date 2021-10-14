@@ -1,4 +1,4 @@
-package com.example.imgurviewer.ui
+package com.example.imgurviewer.ui.zoomImg
 
 import android.os.Bundle
 import android.util.Log
@@ -9,14 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.imgurviewer.R
 import com.example.imgurviewer.adapters.CommentAdapter
 import com.example.imgurviewer.databinding.FragmentZoomImageBinding
+import com.example.imgurviewer.loadImageUtils
 import com.example.imgurviewer.model.Comments
-import com.example.imgurviewer.model.GalleryItems
-import com.example.imgurviewer.toImgurUrl
 import com.example.imgurviewer.ui.imagegallery.ImageGalleryViewModel
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,10 +30,6 @@ class ZoomImageFragment : Fragment() {
     lateinit var mRecyclerView: RecyclerView
     private var mImageAdapter: CommentAdapter? = null
 
-    override fun onStart() {
-        super.onStart()
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,18 +56,16 @@ class ZoomImageFragment : Fragment() {
         imgDsr()
     }
 
+    /*Загрузка картинки в окне с комментами*/
     fun imgDsr() {
         mBinding.title.text = tit ?: "Название остутствует"
         mBinding.link.text = link
         CoroutineScope(Dispatchers.Main).launch {
-            Picasso.get()
-                .load(img)
-                .fit()
-                .error(R.drawable.my_gradient)
-                .into(mBinding.image)
+            mBinding.image.loadImageUtils(img)
         }
     }
 
+    /*инциализация RecyclerView*/
     fun init(resp: List<Comments.DataItem?>) {
         CoroutineScope(Dispatchers.Main).launch {
             when {

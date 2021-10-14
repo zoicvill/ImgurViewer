@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/zoomImageFragment"
-        android:name="com.example.imgurviewer.ui.ZoomImageFragment"
+        android:name="com.example.imgurviewer.ui.zoomImg.ZoomImageFragment"
         android:label="ZoomImageFragment" >
         <action
             android:id="@+id/action_zoomImageFragment_to_imageGalleryFragment"
