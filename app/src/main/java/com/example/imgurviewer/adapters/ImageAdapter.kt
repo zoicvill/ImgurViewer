@@ -40,8 +40,11 @@ class ImageAdapter :
 
     private fun loadImage(position: Int, viewBinding: ViewItemImgBinding) {
         CoroutineScope(Dispatchers.Main).launch {
-            viewBinding.itemImg
-                .loadImageUtils(categoryList?.get(position)?.images?.get(0)?.id)
+            categoryList?.get(position)?.images?.forEach {
+                viewBinding.itemImg
+                    .loadImageUtils( it?.id)
+            }
+            Log.d("Lol", "loadImage ${categoryList?.get(position)?.images}")
         }
 
     }

@@ -7,6 +7,7 @@ import com.squareup.picasso.Picasso
 fun String.toImgurUrl(): String {
     return "https://i.imgur.com/${this}m.jpg"
     }
+
 fun ImageView.loadImageUtils(link: String?){
     Glide.with(context)
         .asBitmap()
