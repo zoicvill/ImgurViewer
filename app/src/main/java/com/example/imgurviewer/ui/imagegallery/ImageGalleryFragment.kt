@@ -28,7 +28,7 @@ class ImageGalleryFragment : Fragment() {
     //    private val viewModel by viewModels<ImageGalleryViewModel>()
     private val viewModel by viewModels<ImageViewModelFlow>()
     lateinit var mRecyclerView: RecyclerView
-    lateinit var mImageFlowAdapter: ImageFlowAdapter
+    private var mImageFlowAdapter: ImageFlowAdapter ? = null
     private val mBinding get() = binding!!
     private var page: Int = 0
 
@@ -84,17 +84,18 @@ class ImageGalleryFragment : Fragment() {
 
     /*инциализация RecyclerView*/
     private fun initialization() {
-            mBinding.list.apply {
-                mRecyclerView = mBinding.list
-                mRecyclerView.layoutManager =
+        mImageFlowAdapter = ImageFlowAdapter()
+        mBinding.list.adapter = mImageFlowAdapter
+//                mRecyclerView = mBinding.list
+                mBinding.list.layoutManager =
                     StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
 //                        mImageAdapter = ImageAdapter()
 //                        mImageAdapter?.run { setList(answer) }
 //                        mRecyclerView.adapter = mImageAdapter
                 Log.d("Lol", "answer.body()")
-                mImageFlowAdapter = ImageFlowAdapter()
-            }
+
+
 
 
 
@@ -104,8 +105,7 @@ class ImageGalleryFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.movies.collectLatest {
                 Log.d("Lol", " ImageGalleryFragment initAdapter")
-                    mImageFlowAdapter.submitData(it)
-                    mRecyclerView.adapter = mImageFlowAdapter
+                    mImageFlowAdapter?.submitData(it)
 
 //                (mBinding.list.adapter as? ImageFlowAdapter)?.submitData(it)
             }
@@ -114,9 +114,9 @@ class ImageGalleryFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        mImageFlowAdapter = null
         binding = null
     }
-
 
 }
 
