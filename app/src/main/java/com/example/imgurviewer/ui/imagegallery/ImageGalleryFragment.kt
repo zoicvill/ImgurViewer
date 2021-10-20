@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.imgurviewer.adapters.ImageAdapter
+import com.example.imgurviewer.adapters.ImageFlowAdapter
 import com.example.imgurviewer.databinding.FragmentImagesBinding
-import com.example.imgurviewer.model.GalleryItems
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -23,9 +24,11 @@ import kotlinx.coroutines.launch
 class ImageGalleryFragment : Fragment() {
 
     private var binding: FragmentImagesBinding? = null
-    private val viewModel by viewModels<ImageGalleryViewModel>()
+
+    //    private val viewModel by viewModels<ImageGalleryViewModel>()
+    private val viewModel by viewModels<ImageViewModelFlow>()
     lateinit var mRecyclerView: RecyclerView
-    private var mImageAdapter: ImageAdapter? = null
+    lateinit var mImageFlowAdapter: ImageFlowAdapter
     private val mBinding get() = binding!!
     private var page: Int = 0
 
@@ -40,69 +43,74 @@ class ImageGalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getObserver()
-        onClick()
+        initialization()
+        initAdapter()
+//        getObserver()
+//        onClick()
     }
 
 
-    /*метод обработки действий кнопок, который выглядит ужасно*/
-    private fun onClick() {
-        // кнопка next
-        mBinding.inklButton.next.setOnClickListener {
-            page++
-            Log.d("Lol", "page $page")
-            viewModel.pagination(page)
-            onClick()
-        }
-        // кнопка perv
-        when (page == 0) {
-            true -> mBinding.inklButton.perv.isEnabled = false
-            false -> {
-                mBinding.inklButton.perv.isEnabled = true
-                mBinding.inklButton.perv.setOnClickListener {
-                    page--
-                    viewModel.pagination(page)
-                    Log.d("Lol", "page $page")
-                    onClick()
-                }
-            }
-        }
-    }
+//    /*метод обработки действий кнопок, который выглядит ужасно*/
+//    private fun onClick() {
+//        // кнопка next
+//        mBinding.inklButton.next.setOnClickListener {
+//            page++
+//            Log.d("Lol", "page $page")
+//            viewModel.pagination(page)
+//            onClick()
+//        }
+//        // кнопка perv
+//        when (page == 0) {
+//            true -> mBinding.inklButton.perv.isEnabled = false
+//            false -> {
+//                mBinding.inklButton.perv.isEnabled = true
+//                mBinding.inklButton.perv.setOnClickListener {
+//                    page--
+//                    viewModel.pagination(page)
+//                    Log.d("Lol", "page $page")
+//                    onClick()
+//                }
+//            }
+//        }
+//    }
 
     /* Подписка на данные и из viewModel */
-    private fun getObserver() {
-        viewModel.getGalleryItems().observe(viewLifecycleOwner, {
-            Log.d("Lol", "Observer")
-            initialization(it)
-        })
-    }
+//    private fun getObserver() {
+//        viewModel.getGalleryItems().observe(viewLifecycleOwner, {
+//            Log.d("Lol", "Observer")
+////            initialization(it)
+//        })
+//    }
 
     /*инциализация RecyclerView*/
-    private fun initialization(answer: List<GalleryItems.DataItem?>) {
-        CoroutineScope(Dispatchers.Main).launch {
-            when {
-                answer.isEmpty() -> {
-                    Log.d("Lol", "answer == null")
-                }
-                answer.isNotEmpty() -> {
-                    mBinding.list.apply {
-                        mRecyclerView = mBinding.list
-                        val sGridLayoutManager =
-                            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                        mRecyclerView.layoutManager = sGridLayoutManager
-                        mImageAdapter = ImageAdapter()
-                        mImageAdapter?.run { setList(answer) }
-                        mRecyclerView.adapter = mImageAdapter
-                        Log.d("Lol", "answer.body()")
-                    }
-                }
-                else -> {
+    private fun initialization() {
+            mBinding.list.apply {
+                mRecyclerView = mBinding.list
+                mRecyclerView.layoutManager =
+                    StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-                }
+//                        mImageAdapter = ImageAdapter()
+//                        mImageAdapter?.run { setList(answer) }
+//                        mRecyclerView.adapter = mImageAdapter
+                Log.d("Lol", "answer.body()")
+                mImageFlowAdapter = ImageFlowAdapter()
+            }
+
+
+
+    }
+
+    private fun initAdapter() {
+        lifecycleScope.launch {
+            viewModel.movies.collectLatest {
+                Log.d("Lol", " ImageGalleryFragment initAdapter")
+                    mImageFlowAdapter.submitData(it)
+                    mRecyclerView.adapter = mImageFlowAdapter
+
+//                (mBinding.list.adapter as? ImageFlowAdapter)?.submitData(it)
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

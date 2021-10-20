@@ -81,7 +81,6 @@ class ZoomImageFragment : Fragment() {
                         mImageAdapter = CommentAdapter()
                         mImageAdapter?.run { setList(resp) }
                         mRecyclerView.adapter = mImageAdapter
-                        Log.d("Lol", "answer.body()")
                     }
                 }
                 else -> {

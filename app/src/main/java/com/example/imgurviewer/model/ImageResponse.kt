@@ -1,11 +1,10 @@
 package com.example.imgurviewer.model
 
-import ImagesItem
 import com.google.gson.annotations.SerializedName
 
-data class ImageDataResp(
+data class ImageResponse(
     @field:SerializedName("data")
-    val data: ImagesItem? = null,
+    val data: GalleryItems.ImagesItem? = null,
 
     @field:SerializedName("success")
     val success: Boolean? = null,

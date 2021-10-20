@@ -1,6 +1,5 @@
 package com.example.imgurviewer.model
 
-import ImagesItem
 import com.google.gson.annotations.SerializedName
 
 data class GalleryItems(

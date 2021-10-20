@@ -44,7 +44,6 @@ class ImageAdapter :
                 viewBinding.itemImg
                     .loadImageUtils( it?.id)
             }
-            Log.d("Lol", "loadImage ${categoryList?.get(position)?.images}")
         }
 
     }
@@ -60,7 +59,7 @@ class ImageAdapter :
                     bundle.putString("tit", this.title)
                     bundle.putString("img", this.images?.get(0)?.id)
                     bundle.putString("link", this.link)
-                    Log.d("Lol", "bundle ${this.title}")
+                    Log.d("Lol", "lickListener ${this.images?.get(0)?.id}")
 
                     view.root.findNavController()
                         .navigate(R.id.action_imageGalleryFragment_to_zoomImageFragment, bundle)
