@@ -42,7 +42,7 @@ class ImageAdapter :
         CoroutineScope(Dispatchers.Main).launch {
             categoryList?.get(position)?.images?.forEach {
                 viewBinding.itemImg
-                    .loadImageUtils( it?.id)
+                    .loadImageUtils( it?.id, true)
             }
         }
 

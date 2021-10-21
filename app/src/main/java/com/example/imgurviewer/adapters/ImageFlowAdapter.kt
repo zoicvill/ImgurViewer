@@ -1,11 +1,15 @@
 package com.example.imgurviewer.adapters
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imgurviewer.R
 import com.example.imgurviewer.databinding.ViewItemImgBinding
 import com.example.imgurviewer.loadImageUtils
 import com.example.imgurviewer.model.GalleryItems
@@ -27,9 +31,14 @@ class ImageFlowAdapter :
     inner class ImageAdapterVH(private val view: ViewItemImgBinding): RecyclerView.ViewHolder(view.root){
         fun bind(item: GalleryItems.ImagesItem) {
             val itemLink: String = item.link ?: ""
-            Log.d("Lol", "ImageFlowAdapter ImageAdapterVH $itemLink")
+            Log.d("Lol", "ImageFlowAdapter ImageAdapterVH $itemLink  id ${item.id} title ${item.title} ")
             view.itemImg.apply {
-                loadImageUtils(itemLink)
+                loadImageUtils(itemLink, true)
+            }
+            view.itemImg.rootView.setOnClickListener {
+                val bundle = bundleOf("id" to item.id, "link" to item.link, "title" to item.title)
+                view.root.findNavController()
+                    .navigate(R.id.action_imageGalleryFragment_to_zoomImageFragment, bundle)
             }
 
         }

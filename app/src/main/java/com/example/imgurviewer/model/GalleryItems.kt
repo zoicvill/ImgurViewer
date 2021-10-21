@@ -69,13 +69,13 @@ data class GalleryItems(
                 ImagesItem(
                     id = dataItem?.id,
                     title = dataItem?.title,
-                    link = link
+                    link = link,
+
                 )
             )
         }
 
         return newList
     }
-
 
 }

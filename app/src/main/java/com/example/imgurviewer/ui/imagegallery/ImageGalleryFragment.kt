@@ -24,13 +24,9 @@ import kotlinx.coroutines.launch
 class ImageGalleryFragment : Fragment() {
 
     private var binding: FragmentImagesBinding? = null
-
-    //    private val viewModel by viewModels<ImageGalleryViewModel>()
     private val viewModel by viewModels<ImageViewModelFlow>()
-    lateinit var mRecyclerView: RecyclerView
     private var mImageFlowAdapter: ImageFlowAdapter ? = null
     private val mBinding get() = binding!!
-    private var page: Int = 0
 
 
     override fun onCreateView(
@@ -45,54 +41,15 @@ class ImageGalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialization()
         initAdapter()
-//        getObserver()
-//        onClick()
     }
 
-
-//    /*метод обработки действий кнопок, который выглядит ужасно*/
-//    private fun onClick() {
-//        // кнопка next
-//        mBinding.inklButton.next.setOnClickListener {
-//            page++
-//            Log.d("Lol", "page $page")
-//            viewModel.pagination(page)
-//            onClick()
-//        }
-//        // кнопка perv
-//        when (page == 0) {
-//            true -> mBinding.inklButton.perv.isEnabled = false
-//            false -> {
-//                mBinding.inklButton.perv.isEnabled = true
-//                mBinding.inklButton.perv.setOnClickListener {
-//                    page--
-//                    viewModel.pagination(page)
-//                    Log.d("Lol", "page $page")
-//                    onClick()
-//                }
-//            }
-//        }
-//    }
-
-    /* Подписка на данные и из viewModel */
-//    private fun getObserver() {
-//        viewModel.getGalleryItems().observe(viewLifecycleOwner, {
-//            Log.d("Lol", "Observer")
-////            initialization(it)
-//        })
-//    }
 
     /*инциализация RecyclerView*/
     private fun initialization() {
         mImageFlowAdapter = ImageFlowAdapter()
         mBinding.list.adapter = mImageFlowAdapter
-//                mRecyclerView = mBinding.list
                 mBinding.list.layoutManager =
                     StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-
-//                        mImageAdapter = ImageAdapter()
-//                        mImageAdapter?.run { setList(answer) }
-//                        mRecyclerView.adapter = mImageAdapter
                 Log.d("Lol", "answer.body()")
 
 
