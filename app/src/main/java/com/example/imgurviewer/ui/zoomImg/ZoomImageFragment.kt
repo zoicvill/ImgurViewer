@@ -51,9 +51,12 @@ class ZoomImageFragment : Fragment() {
         viewModel.getComments().observe(viewLifecycleOwner, {
             init(it)
         })
-
         imgDsr()
     }
+
+
+
+
 
     /*Загрузка картинки в окне с комментами*/
     fun imgDsr() {
