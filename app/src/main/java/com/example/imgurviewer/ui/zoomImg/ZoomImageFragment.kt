@@ -13,6 +13,7 @@ import com.example.imgurviewer.adapters.CommentAdapter
 import com.example.imgurviewer.databinding.FragmentZoomImageBinding
 import com.example.imgurviewer.loadImageUtils
 import com.example.imgurviewer.model.Comments
+import com.example.imgurviewer.toFullLink
 import com.example.imgurviewer.ui.imagegallery.ImageGalleryViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,6 @@ class ZoomImageFragment : Fragment() {
     private var _binding: FragmentZoomImageBinding? = null
     private val mBinding get() = _binding!!
     private var id: String? = null
-    private var img: String? = null
     private var tit: String? = null
     private var link: String? = null
     lateinit var mRecyclerView: RecyclerView
@@ -36,11 +36,10 @@ class ZoomImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentZoomImageBinding.inflate(layoutInflater, container, false)
-        id = arguments?.getString("key")
-        tit = arguments?.getString("tit")
-        img = arguments?.getString("img")
+        id = arguments?.getString("id")
+        tit = arguments?.getString("title")
         link = arguments?.getString("link")
-        Log.d("Lol", "onCreateView $id $tit")
+
 
         return mBinding.root
     }
@@ -52,16 +51,19 @@ class ZoomImageFragment : Fragment() {
         viewModel.getComments().observe(viewLifecycleOwner, {
             init(it)
         })
-
         imgDsr()
     }
+
+
+
+
 
     /*Загрузка картинки в окне с комментами*/
     fun imgDsr() {
         mBinding.title.text = tit ?: "Название остутствует"
-        mBinding.link.text = link
+        mBinding.link.text = id?.toFullLink()
         CoroutineScope(Dispatchers.Main).launch {
-            mBinding.image.loadImageUtils(img)
+            mBinding.image.loadImageUtils(link, true)
         }
     }
 
@@ -81,7 +83,6 @@ class ZoomImageFragment : Fragment() {
                         mImageAdapter = CommentAdapter()
                         mImageAdapter?.run { setList(resp) }
                         mRecyclerView.adapter = mImageAdapter
-                        Log.d("Lol", "answer.body()")
                     }
                 }
                 else -> {

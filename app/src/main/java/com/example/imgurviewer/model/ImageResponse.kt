@@ -2,7 +2,7 @@ package com.example.imgurviewer.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ImageDataResp(
+data class ImageResponse(
     @field:SerializedName("data")
     val data: GalleryItems.ImagesItem? = null,
 

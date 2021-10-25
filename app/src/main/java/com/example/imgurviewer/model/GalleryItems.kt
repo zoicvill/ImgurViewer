@@ -1,5 +1,6 @@
 package com.example.imgurviewer.model
 
+import com.example.imgurviewer.REGEX
 import com.google.gson.annotations.SerializedName
 
 data class GalleryItems(
@@ -35,20 +36,47 @@ data class GalleryItems(
 
     data class ImagesItem(
 
-        @field:SerializedName("link")
-        val link: String? = null,
-
-        @field:SerializedName("description")
-        val description: String? = null,
-
-        @field:SerializedName("section")
-        val section: Any? = null,
+        @field:SerializedName("id")
+        val id: String? = null,
 
         @field:SerializedName("title")
         val title: String? = null,
 
-        @field:SerializedName("id")
-        val id: String? = null,
+        @field:SerializedName("type")
+        val type: String? = null,
 
-        )
+        @field:SerializedName("link")
+        val link: String? = null
+
+    )
+
+    val imgList: List<ImagesItem> by lazy {
+        getNewImageList()
+    }
+
+    private fun getNewImageList(): List<ImagesItem> {
+        val newList = ArrayList<ImagesItem>()
+        data?.filter {
+            it?.link?.matches(Regex(REGEX))?.or(it.images?.getOrNull(0) != null) == true
+        }?.forEach { dataItem ->
+
+            var link = ""
+            if (dataItem?.link?.matches(Regex(REGEX)) == true) {
+                dataItem.id?.let { link = it }
+            } else {
+                dataItem?.images?.getOrNull(0)?.id?.let { link = it }
+            }
+            newList.add(
+                ImagesItem(
+                    id = dataItem?.id,
+                    title = dataItem?.title,
+                    link = link,
+
+                )
+            )
+        }
+
+        return newList
+    }
+
 }

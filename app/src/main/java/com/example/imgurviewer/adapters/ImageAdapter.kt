@@ -40,8 +40,10 @@ class ImageAdapter :
 
     private fun loadImage(position: Int, viewBinding: ViewItemImgBinding) {
         CoroutineScope(Dispatchers.Main).launch {
-            viewBinding.itemImg
-                .loadImageUtils(categoryList?.get(position)?.images?.get(0)?.id)
+            categoryList?.get(position)?.images?.forEach {
+                viewBinding.itemImg
+                    .loadImageUtils( it?.id, true)
+            }
         }
 
     }
@@ -57,7 +59,7 @@ class ImageAdapter :
                     bundle.putString("tit", this.title)
                     bundle.putString("img", this.images?.get(0)?.id)
                     bundle.putString("link", this.link)
-                    Log.d("Lol", "bundle ${this.title}")
+                    Log.d("Lol", "lickListener ${this.images?.get(0)?.id}")
 
                     view.root.findNavController()
                         .navigate(R.id.action_imageGalleryFragment_to_zoomImageFragment, bundle)

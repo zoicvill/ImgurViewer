@@ -17,12 +17,9 @@ class ZoomImageViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun comments(str: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (APIREPOSITRETROFIT.getComments(str).isSuccessful) {
-                commentsItems.postValue(APIREPOSITRETROFIT.getComments(str).body()?.data)
-                Log.d("Lol", "getComments if ${APIREPOSITRETROFIT.getComments(str).body()?.data}")
-            } else {
-                Log.d("Lol", "getComments ${APIREPOSITRETROFIT.getPopularImgs(0).code()}")
-            }
+            commentsItems.postValue(APIREPOSITRETROFIT.getCommentsOrNull(str)?.data)
+            Log.d("Lol", "getComments if ${APIREPOSITRETROFIT.getCommentsOrNull(str)?.data}")
+
         }
     }
 

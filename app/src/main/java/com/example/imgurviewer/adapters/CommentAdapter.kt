@@ -1,9 +1,13 @@
 package com.example.imgurviewer.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.imgurviewer.REGEX
 import com.example.imgurviewer.databinding.ViewItemCommetBinding
+import com.example.imgurviewer.loadImageUtils
 import com.example.imgurviewer.model.Comments
 
 class CommentAdapter : RecyclerView.Adapter<CommentAdapter.Holder>() {
@@ -30,11 +34,34 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.Holder>() {
     inner class Holder(private val view: ViewItemCommetBinding) :
         RecyclerView.ViewHolder(view.root) {
         fun bind(position: Int) {
+
             commentList[position]?.apply {
-                this.let {
-                    view.autor.text = it.author
-                    view.tvComment.text = it.comment
+                let {
+                    //// поправить
+                   var reg = ""
+                    comment.let {
+                        it?.split(" ")?.forEach {
+                            fr -> if (fr.matches(Regex(REGEX))){
+                                reg = fr
+                        }
+                        }
+                    }
+                    Log.d("Lol", "reg $reg")
+                    view.autor.text = author
+
+                    when (comment?.matches(Regex(REGEX))) {
+                        true -> {
+                            view.imageCom.loadImageUtils(reg, false)
+                        }
+
+                        false -> {
+                            view.tvComment.text = comment
+                            view.imageCom.isVisible = false
+                        }
+                    }
+
                 }
+
             }
         }
     }
