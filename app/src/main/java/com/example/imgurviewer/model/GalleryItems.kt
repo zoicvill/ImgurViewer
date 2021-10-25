@@ -1,5 +1,6 @@
 package com.example.imgurviewer.model
 
+import com.example.imgurviewer.REGEX
 import com.google.gson.annotations.SerializedName
 
 data class GalleryItems(
@@ -56,11 +57,11 @@ data class GalleryItems(
     private fun getNewImageList(): List<ImagesItem> {
         val newList = ArrayList<ImagesItem>()
         data?.filter {
-            it?.link?.endsWith(".jpg") == true || it?.images?.getOrNull(0)?.link?.endsWith(".jpg") == true
+            it?.link?.matches(Regex(REGEX))?.or(it.images?.getOrNull(0) != null) == true
         }?.forEach { dataItem ->
 
             var link = ""
-            if (dataItem?.link?.endsWith(".jpg") == true) {
+            if (dataItem?.link?.matches(Regex(REGEX)) == true) {
                 dataItem.id?.let { link = it }
             } else {
                 dataItem?.images?.getOrNull(0)?.id?.let { link = it }

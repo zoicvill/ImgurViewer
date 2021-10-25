@@ -11,7 +11,7 @@ import java.lang.NullPointerException
 class ImagePagingSource(private val responseData: ResponseData): PagingSource<Int, GalleryItems.ImagesItem>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GalleryItems.ImagesItem> {
         try {
-            val nextPage = params.key?: 1
+            val nextPage = params.key?: 0
             val response = responseData.getPopularImgOrNull(nextPage)
             Log.d("Lol", "ImagePagingSource")
             val resultData = response?.imgList

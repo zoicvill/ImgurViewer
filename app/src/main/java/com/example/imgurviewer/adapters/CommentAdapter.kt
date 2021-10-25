@@ -41,14 +41,15 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.Holder>() {
                    var reg = ""
                     comment.let {
                         it?.split(" ")?.forEach {
-                            fr -> if (fr.contains(REGEX.toRegex())){
+                            fr -> if (fr.matches(Regex(REGEX))){
                                 reg = fr
                         }
                         }
                     }
                     Log.d("Lol", "reg $reg")
                     view.autor.text = author
-                    when (comment?.contains(Regex(REGEX))) {
+
+                    when (comment?.matches(Regex(REGEX))) {
                         true -> {
                             view.imageCom.loadImageUtils(reg, false)
                         }
