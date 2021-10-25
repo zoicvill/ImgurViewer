@@ -15,10 +15,8 @@
 - Flow
 - Paging3
 
-[Ссылка на debug версию](https://disk.yandex.ru/d/zv79AmlIe62syw)
 <p>
-<img style="width:300px;height:650px;"src="https://i.ibb.co/NLBhb1K/Screenshot-1634237312.png"/>
-<img style="width:300px;height:650px;"src="https://i.ibb.co/5s5W3Sc/Screenshot-1634237317.png"/>
-<img style="width:300px;height:650px;"src="https://i.ibb.co/Fgc57q9/Screenshot-1634237322.png"/>
+<img style="width:300px;height:650px;"src="https://i.ibb.co/pP5xjXP/Screenshot-1635186950.png"/>
+<img style="width:300px;height:650px;"src="https://i.ibb.co/pR9qjS5/Screenshot-1635187281.png"/>
 <img style="width:300px;height:650px;"src="https://i.ibb.co/JyS6rt6/Screenshot-1634237325.png"/>
 </p>
